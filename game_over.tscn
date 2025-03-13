@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://mgja8qrqgvgb"]
+
+[ext_resource type="Script" path="res://game_over.gd" id="1_tp3hm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_76q7j"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cbbxn"]
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_tp3hm")
+
+[node name="Button" type="Button" parent="."]
+z_index = 1
+texture_filter = 1
+offset_left = 342.0
+offset_top = 350.0
+offset_right = 502.0
+offset_bottom = 413.0
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_76q7j")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_cbbxn")
+text = "RESTART"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

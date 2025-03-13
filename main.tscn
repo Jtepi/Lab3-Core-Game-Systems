@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://brpmwlqeejlwj"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_5smp0"]
+[ext_resource type="Texture2D" uid="uid://cakr4t5vhfnyt" path="res://background.png" id="1_bf854"]
+[ext_resource type="PackedScene" uid="uid://rw3owkgxi8y3" path="res://player.tscn" id="2_ujswn"]
+[ext_resource type="PackedScene" uid="uid://ww5gdybsh28a" path="res://ground.tscn" id="4_grdmj"]
+[ext_resource type="PackedScene" uid="uid://mgja8qrqgvgb" path="res://game_over.tscn" id="6_1bpja"]
+[ext_resource type="Texture2D" uid="uid://dbmlu2jupi0pp" path="res://heart.png" id="7_e5yfr"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_5smp0")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(44, 92)
+texture = ExtResource("1_bf854")
+offset = Vector2(432, 384)
+
+[node name="Player" parent="." instance=ExtResource("2_ujswn")]
+
+[node name="Ground" parent="." instance=ExtResource("4_grdmj")]
+z_index = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="ScoreLabel" type="Label" parent="."]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.5
+offset_right = 34.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "SCORE: 0"
+
+[node name="GameOver" parent="." instance=ExtResource("6_1bpja")]
+
+[node name="HealthUI" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Heart1" type="TextureRect" parent="HealthUI"]
+layout_mode = 1
+offset_left = 12.0
+offset_right = 62.4
+offset_bottom = 40.0
+texture = ExtResource("7_e5yfr")
+expand_mode = 3
+
+[node name="Heart2" type="TextureRect" parent="HealthUI"]
+layout_mode = 1
+offset_left = 66.0
+offset_top = 1.0
+offset_right = 116.4
+offset_bottom = 41.0
+texture = ExtResource("7_e5yfr")
+expand_mode = 3
+
+[node name="Heart3" type="TextureRect" parent="HealthUI"]
+layout_mode = 1
+offset_left = 125.0
+offset_top = 1.0
+offset_right = 175.4
+offset_bottom = 41.0
+texture = ExtResource("7_e5yfr")
+expand_mode = 3
+
+[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]
